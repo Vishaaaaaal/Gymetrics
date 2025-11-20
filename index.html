@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymetrics | AI Powered Smart Gym Analytics</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gymBlack: '#000000',
+                        gymNeon: '#C0FF00', // The requested Primary Color
+                        gymBlue: '#2979FF', // Secondary Accent
+                        gymDarkGray: '#121212',
+                        gymGlass: 'rgba(255, 255, 255, 0.05)',
+                    },
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    animation: {
+                        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
+                        'float': 'float 6s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+
+    <style>
+        body {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        /* Glassmorphism Utilities */
+        .glass-panel {
+            background: rgba(20, 20, 20, 0.6);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .glass-nav {
+            background: rgba(0, 0, 0, 0.8);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* Custom Gradient Text */
+        .text-gradient {
+            background: linear-gradient(to right, #ffffff, #C0FF00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Abstract Dashboard Background Glow */
+        .glow-bg {
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(41,121,255,0.3) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-gymNeon selection:text-gymBlack">
+
+    <nav class="fixed w-full z-50 glass-nav transition-all duration-300">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex items-center">
+                    <a href="#" class="flex items-center space-x-3">
+                        <img src="assets/logo.png" alt="Gymetrics logo" class="h-10 w-10">
+                        <img src="assets/word_logo.png" alt="Gymetrics" class="h-6 md:h-8 object-contain">
+                    </a>
+                </div>
+                <div class="hidden md:flex space-x-8 text-sm font-medium text-gray-300">
+                    <a href="#features" class="hover:text-gymNeon transition">Features</a>
+                    <a href="#how-it-works" class="hover:text-gymNeon transition">How it Works</a>
+                    <a href="#dashboard" class="hover:text-gymNeon transition">Dashboard</a>
+                    <a href="#screenshots" class="hover:text-gymNeon transition">App Screens</a>
+                    <a href="#faq" class="hover:text-gymNeon transition">FAQ</a>
+                </div>
+                <div class="hidden md:flex">
+                    <a href="#early-access" class="px-6 py-2 rounded-full bg-white/10 border border-white/20 hover:bg-gymNeon hover:text-black hover:border-gymNeon transition-all font-semibold text-sm">
+                        Request Access
+                    </a>
+                </div>
+                <div class="md:hidden flex items-center">
+                    <button id="mobile-menu-btn" class="text-gray-300 hover:text-white">
+                        <i class="fas fa-bars text-2xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div id="mobile-menu" class="hidden md:hidden bg-black border-b border-gray-800">
+            <div class="px-4 pt-2 pb-6 space-y-2">
+                <a href="#features" class="block px-3 py-2 text-gray-300 hover:text-gymNeon">Features</a>
+                <a href="#how-it-works" class="block px-3 py-2 text-gray-300 hover:text-gymNeon">How it Works</a>
+                <a href="#dashboard" class="block px-3 py-2 text-gray-300 hover:text-gymNeon">Dashboard</a>
+                <a href="#screenshots" class="block px-3 py-2 text-gray-300 hover:text-gymNeon">App Screens</a>
+                <a href="#early-access" class="block px-3 py-2 text-gymNeon font-bold">Request Access</a>
+            </div>
+        </div>
+    </nav>
+
+    <section class="relative pt-32 pb-20 lg:pt-40 lg:pb-28 overflow-hidden">
+        <div class="glow-bg top-20 left-[-100px] bg-gymBlue/20"></div>
+        <div class="glow-bg bottom-20 right-[-100px] bg-gymNeon/10"></div>
+
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center z-10 relative">
+            <div class="inline-flex items-center px-4 py-2 rounded-full border border-gymNeon/30 bg-gymNeon/5 text-gymNeon text-xs font-bold tracking-wide mb-8 animate-fade-in-up">
+                <span class="w-2 h-2 rounded-full bg-gymNeon mr-2 animate-pulse"></span>
+                V 1.0 EARLY ACCESS OPEN
+            </div>
+            
+            <h1 class="text-5xl md:text-7xl font-extrabold text-white tracking-tight mb-6 leading-tight">
+                AI-Powered Gym <br>
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-gymNeon to-gymBlue">Occupancy & Analytics</span>
+            </h1>
+            
+            <p class="mt-4 max-w-2xl mx-auto text-xl text-gray-400 font-light">
+                Understand your gym like never before — live footfall, equipment usage, user trends, and peak hours, directly from your CCTV feeds.
+            </p>
+            
+            <div class="mt-10 flex justify-center gap-4">
+                <a href="#early-access" class="px-8 py-4 rounded-full bg-gymNeon text-black font-bold text-lg hover:bg-white hover:scale-105 transition-all shadow-[0_0_20px_rgba(192,255,0,0.4)]">
+                    Request Early Access
+                </a>
+                <a href="#features" class="px-8 py-4 rounded-full glass-panel text-white font-semibold text-lg hover:bg-white/10 transition-all flex items-center gap-2">
+                    <i class="fas fa-play-circle"></i> Watch Demo
+                </a>
+            </div>
+
+            <div class="mt-20 relative max-w-5xl mx-auto animate-float">
+                <div class="glass-panel rounded-2xl p-2 border border-gray-700 shadow-2xl bg-black/80">
+                    <div class="h-12 border-b border-gray-800 flex items-center px-4 space-x-2">
+                        <div class="w-3 h-3 rounded-full bg-red-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-yellow-500"></div>
+                        <div class="w-3 h-3 rounded-full bg-green-500"></div>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 p-4 h-[400px]">
+                        <div class="col-span-2 bg-gray-900/50 rounded-xl border border-gray-800 p-4 relative overflow-hidden">
+                            <div class="text-xs text-gray-500 uppercase mb-2">Live Heatmap</div>
+                            <div class="absolute inset-0 opacity-30">
+                                <div class="absolute top-1/2 left-1/3 w-20 h-20 bg-red-500 blur-2xl rounded-full"></div>
+                                <div class="absolute top-1/3 right-1/4 w-24 h-24 bg-gymNeon blur-2xl rounded-full"></div>
+                                <div class="absolute bottom-10 left-10 w-16 h-16 bg-blue-500 blur-xl rounded-full"></div>
+                            </div>
+                            <div class="relative z-10 h-full flex items-center justify-center text-gray-600 font-mono text-sm border border-dashed border-gray-700 rounded">
+                                [CCTV FEED ANALYTICS OVERLAY]
+                            </div>
+                        </div>
+                        <div class="flex flex-col gap-4">
+                            <div class="flex-1 bg-gray-900/50 rounded-xl border border-gray-800 p-4 flex flex-col justify-center items-center">
+                                <div class="text-4xl font-bold text-gymNeon">84%</div>
+                                <div class="text-xs text-gray-400">Current Occupancy</div>
+                            </div>
+                            <div class="flex-1 bg-gray-900/50 rounded-xl border border-gray-800 p-4">
+                                <div class="text-xs text-gray-500 uppercase mb-2">Squat Racks</div>
+                                <div class="w-full bg-gray-700 h-2 rounded-full mt-2">
+                                    <div class="bg-gymBlue h-2 rounded-full" style="width: 90%"></div>
+                                </div>
+                                <div class="text-right text-xs text-gymBlue mt-1">High Demand</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="features" class="py-20 bg-gymDarkGray/50 relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Everything You Need to Optimize</h2>
+                <p class="text-gray-400">Powerful features driven by computer vision.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymNeon/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymNeon/10 rounded-lg flex items-center justify-center mb-6 text-gymNeon group-hover:bg-gymNeon group-hover:text-black transition-all">
+                        <i class="fas fa-users text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Real-Time Occupancy</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Track how crowded your gym is every minute using vision-based AI detection. No turnstiles required.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymBlue/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymBlue/10 rounded-lg flex items-center justify-center mb-6 text-gymBlue group-hover:bg-gymBlue group-hover:text-white transition-all">
+                        <i class="fas fa-dumbbell text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Equipment Usage</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Know which machines are used the most, for how long, and at what times. Optimize your floor plan.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymNeon/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymNeon/10 rounded-lg flex items-center justify-center mb-6 text-gymNeon group-hover:bg-gymNeon group-hover:text-black transition-all">
+                        <i class="fas fa-chart-line text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Peak-Hour Prediction</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">AI identifies historical user flows to predict future peak hours, helping you optimize staffing.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymBlue/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymBlue/10 rounded-lg flex items-center justify-center mb-6 text-gymBlue group-hover:bg-gymBlue group-hover:text-white transition-all">
+                        <i class="fas fa-bell text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Smart Notifications</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Get instant alerts when your gym exceeds capacity or specific equipment zones are congested.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymNeon/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymNeon/10 rounded-lg flex items-center justify-center mb-6 text-gymNeon group-hover:bg-gymNeon group-hover:text-black transition-all">
+                        <i class="fas fa-laptop-code text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Manager Dashboard</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">Beautiful, intuitive dashboards updated live for trainers, owners, and managers.</p>
+                </div>
+
+                <div class="glass-panel p-8 rounded-2xl hover:border-gymBlue/50 transition-colors duration-300 group">
+                    <div class="w-12 h-12 bg-gymBlue/10 rounded-lg flex items-center justify-center mb-6 text-gymBlue group-hover:bg-gymBlue group-hover:text-white transition-all">
+                        <i class="fas fa-user-shield text-xl"></i>
+                    </div>
+                    <h3 class="text-xl font-bold text-white mb-3">Privacy-Protected AI</h3>
+                    <p class="text-gray-400 text-sm leading-relaxed">GDPR compliant. We analyze movement patterns, not identities. No facial recognition used.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-20 bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                <div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-6">
+                        Why Smart Gyms <br>
+                        <span class="text-gymNeon">Choose Gymetrics</span>
+                    </h2>
+                    <p class="text-gray-400 mb-8 text-lg">
+                        Stop guessing. Start knowing. Data-driven decisions lead to happier members and higher retention rates.
+                    </p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-gymNeon/20 flex items-center justify-center mt-1">
+                                <i class="fas fa-check text-gymNeon text-xs"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold">Improve Member Satisfaction</h4>
+                                <p class="text-gray-500 text-sm">Members can see live occupancy via app API before they leave home.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-gymBlue/20 flex items-center justify-center mt-1">
+                                <i class="fas fa-check text-gymBlue text-xs"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold">Optimize Machine Layout</h4>
+                                <p class="text-gray-500 text-sm">Identify dead zones and high-traffic bottlenecks.</p>
+                            </div>
+                        </div>
+                        <div class="flex items-start">
+                            <div class="flex-shrink-0 h-6 w-6 rounded-full bg-gymNeon/20 flex items-center justify-center mt-1">
+                                <i class="fas fa-check text-gymNeon text-xs"></i>
+                            </div>
+                            <div class="ml-4">
+                                <h4 class="text-white font-bold">Increase Gym Efficiency</h4>
+                                <p class="text-gray-500 text-sm">Save on HVAC and lighting during predicted low-usage hours.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative">
+                    <div class="absolute inset-0 bg-gradient-to-r from-gymNeon to-gymBlue opacity-20 blur-3xl rounded-full"></div>
+                    <div class="relative glass-panel p-6 rounded-xl border border-gray-800">
+                        <div class="flex justify-between items-end h-64 gap-2">
+                            <div class="w-full bg-gray-800 rounded-t-sm h-[40%] animate-pulse"></div>
+                            <div class="w-full bg-gray-800 rounded-t-sm h-[60%] animate-pulse"></div>
+                            <div class="w-full bg-gymBlue rounded-t-sm h-[85%] shadow-[0_0_15px_rgba(41,121,255,0.5)]"></div>
+                            <div class="w-full bg-gray-800 rounded-t-sm h-[50%] animate-pulse"></div>
+                            <div class="w-full bg-gray-800 rounded-t-sm h-[30%] animate-pulse"></div>
+                        </div>
+                        <div class="mt-4 flex justify-between text-xs text-gray-500 font-mono uppercase">
+                            <span>6 AM</span>
+                            <span>12 PM</span>
+                            <span class="text-gymBlue font-bold">6 PM (Peak)</span>
+                            <span>10 PM</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="how-it-works" class="py-20 bg-gymDarkGray/30 border-y border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl md:text-4xl font-bold text-white">How It Works</h2>
+                <p class="text-gray-400 mt-2">Setup takes less than 15 minutes.</p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8 text-center relative">
+                <div class="hidden md:block absolute top-12 left-0 w-full h-0.5 bg-gray-800 z-0"></div>
+
+                <div class="relative z-10">
+                    <div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border-2 border-gymNeon mb-6 shadow-[0_0_15px_rgba(192,255,0,0.2)] bg-black">
+                        <span class="text-3xl font-bold text-white">1</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Connect CCTV</h3>
+                    <p class="text-gray-400 text-sm">Works with your existing gym CCTVs. No new hardware required.</p>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border border-gray-700 mb-6 bg-black">
+                        <span class="text-3xl font-bold text-white">2</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">AI Analysis</h3>
+                    <p class="text-gray-400 text-sm">Our software runs on your local server or cloud.</p>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border border-gray-700 mb-6 bg-black">
+                        <span class="text-3xl font-bold text-white">3</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Get Insights</h3>
+                    <p class="text-gray-400 text-sm">View live occupancy, heatmaps, and alerts.</p>
+                </div>
+
+                <div class="relative z-10">
+                    <div class="w-24 h-24 mx-auto glass-panel rounded-full flex items-center justify-center border border-gray-700 mb-6 bg-black">
+                        <span class="text-3xl font-bold text-white">4</span>
+                    </div>
+                    <h3 class="text-lg font-bold text-white mb-2">Optimize</h3>
+                    <p class="text-gray-400 text-sm">Make layout and staffing decisions instantly.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="dashboard" class="py-20 bg-black overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <span class="text-gymBlue font-semibold tracking-wider uppercase text-sm">Premium Analytics</span>
+                <h2 class="text-3xl md:text-4xl font-bold text-white mt-2">Live Dashboard Showcase</h2>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                
+                <div class="glass-panel rounded-xl p-6 border border-gray-800">
+                    <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-gray-300 font-medium">Live Occupancy</h4>
+                        <span class="w-2 h-2 rounded-full bg-red-500 animate-pulse"></span>
+                    </div>
+                    <div class="relative h-40 flex items-center justify-center">
+                        <div class="w-32 h-16 overflow-hidden relative">
+                            <div class="w-32 h-32 rounded-full border-8 border-gray-700 box-border absolute top-0 left-0"></div>
+                            <div class="w-32 h-32 rounded-full border-8 border-transparent border-t-gymNeon border-r-gymNeon box-border absolute top-0 left-0 transform rotate-45"></div>
+                        </div>
+                        <div class="absolute top-1/2 mt-2 text-center">
+                            <span class="text-3xl font-bold text-white">82</span>
+                            <span class="text-xs text-gray-400 block">People</span>
+                        </div>
+                    </div>
+                    <p class="text-center text-xs text-gymNeon mt-2">Nearing Capacity</p>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 border border-gray-800">
+                     <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-gray-300 font-medium">Zone Activity</h4>
+                    </div>
+                    <div class="space-y-3">
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                <span>Free Weights</span>
+                                <span>90%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-1.5 rounded-full">
+                                <div class="bg-red-500 h-1.5 rounded-full" style="width: 90%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                <span>Cardio Deck</span>
+                                <span>45%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-1.5 rounded-full">
+                                <div class="bg-gymNeon h-1.5 rounded-full" style="width: 45%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="flex justify-between text-xs text-gray-400 mb-1">
+                                <span>Functional Area</span>
+                                <span>60%</span>
+                            </div>
+                            <div class="w-full bg-gray-800 h-1.5 rounded-full">
+                                <div class="bg-gymBlue h-1.5 rounded-full" style="width: 60%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="glass-panel rounded-xl p-6 border border-gray-800">
+                     <div class="flex justify-between items-center mb-4">
+                        <h4 class="text-gray-300 font-medium">Wait Time Estimator</h4>
+                    </div>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="bg-gray-900/50 p-3 rounded-lg">
+                            <i class="fas fa-running text-gymBlue mb-2"></i>
+                            <div class="text-xl font-bold text-white">0m</div>
+                            <div class="text-[10px] text-gray-400">Treadmill</div>
+                        </div>
+                         <div class="bg-gray-900/50 p-3 rounded-lg border border-red-500/30">
+                            <i class="fas fa-dumbbell text-red-400 mb-2"></i>
+                            <div class="text-xl font-bold text-white">12m</div>
+                            <div class="text-[10px] text-gray-400">Squat Rack</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <section id="screenshots" class="py-20 bg-gymDarkGray/40 border-y border-gray-900">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row items-center justify-between gap-10 mb-12">
+                <div>
+                    <div class="flex items-center gap-4 mb-4">
+                        <img src="assets/logo.png" alt="Gymetrics logo" class="h-12 w-12">
+                        <img src="assets/word_logo.png" alt="Gymetrics wordmark" class="h-8 object-contain">
+                    </div>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white">See the App Experience</h2>
+                    <p class="text-gray-400 mt-3 max-w-xl">Gym CCTVs + AI + computer vision working together to give members and managers real-time clarity.</p>
+                    <div class="flex flex-wrap items-center gap-4 mt-6">
+                        <span class="px-4 py-2 rounded-full bg-white/5 border border-white/10 text-gray-300 text-sm">Coming soon</span>
+                        <div class="flex items-center gap-3">
+                            <button class="px-4 py-3 rounded-xl border border-gray-800 bg-black/60 text-white text-sm flex items-center gap-2 hover:border-gymNeon transition">
+                                <i class="fab fa-google-play text-gymNeon"></i>
+                                Play Store · Coming Soon
+                            </button>
+                            <button class="px-4 py-3 rounded-xl border border-gray-800 bg-black/60 text-white text-sm flex items-center gap-2 hover:border-gymBlue transition">
+                                <i class="fab fa-apple text-gymBlue"></i>
+                                App Store · Coming Soon
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6 w-full lg:w-1/2">
+                    <div class="glass-panel p-3 rounded-2xl border border-gray-800 shadow-2xl">
+                        <img src="assets/home.png" alt="Gymetrics app home screen" class="rounded-xl w-full">
+                    </div>
+                    <div class="glass-panel p-3 rounded-2xl border border-gray-800 shadow-2xl">
+                        <img src="assets/intro.png" alt="Gymetrics app intro screen" class="rounded-xl w-full">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="early-access" class="py-20 relative">
+        <div class="absolute inset-0 bg-gradient-to-b from-black to-gray-900"></div>
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="glass-panel p-8 md:p-12 rounded-3xl border border-gymNeon/30 shadow-[0_0_40px_rgba(192,255,0,0.1)]">
+                <div class="text-center mb-8">
+                    <h2 class="text-3xl font-bold text-white mb-2">Be Our Early Partner Gym</h2>
+                    <p class="text-gray-400">We are onboarding a small group of gyms for exclusive early testing. Limited spots available.</p>
+                </div>
+
+                <form class="space-y-4">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="text" placeholder="Your Name" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gymNeon transition-colors">
+                        <input type="text" placeholder="Gym Name" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gymNeon transition-colors">
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <input type="email" placeholder="Email Address" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gymNeon transition-colors">
+                        <input type="text" placeholder="City" class="w-full bg-black/50 border border-gray-700 rounded-lg px-4 py-3 text-white focus:outline-none focus:border-gymNeon transition-colors">
+                    </div>
+                    <button type="submit" class="w-full bg-gymNeon text-black font-bold text-lg py-4 rounded-lg hover:bg-white transition-colors mt-4">
+                        Join Early Access List
+                    </button>
+                </form>
+                <p class="text-center text-xs text-gray-500 mt-4">
+                    <i class="fas fa-lock mr-1"></i> Your data is secure. No spam.
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="faq" class="py-20 bg-black">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-bold text-white mb-10 text-center">Common Questions</h2>
+            
+            <div class="space-y-4">
+                <div class="border border-gray-800 rounded-lg bg-gymDarkGray/30 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-white">Do I need new hardware?</span>
+                        <i class="fas fa-chevron-down text-gymNeon"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-400 text-sm">
+                        No. Gymetrics connects directly to your existing gym CCTVs with computer vision. If you have a standard security system, you are ready to go.
+                    </div>
+                </div>
+
+                <div class="border border-gray-800 rounded-lg bg-gymDarkGray/30 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-white">Is Gymetrics privacy-compliant?</span>
+                        <i class="fas fa-chevron-down text-gymNeon"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-400 text-sm">
+                        Absolutely. We use computer vision to read movement patterns, not faces. We do not store video feeds or identify individuals.
+                    </div>
+                </div>
+
+                <div class="border border-gray-800 rounded-lg bg-gymDarkGray/30 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-white">Can I install it in a small gym?</span>
+                        <i class="fas fa-chevron-down text-gymNeon"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-400 text-sm">
+                        Yes! Gymetrics scales from small boutique studios (1-2 cameras) to massive commercial facilities.
+                    </div>
+                </div>
+
+                <div class="border border-gray-800 rounded-lg bg-gymDarkGray/30 overflow-hidden">
+                    <button class="w-full px-6 py-4 text-left flex justify-between items-center focus:outline-none">
+                        <span class="font-medium text-white">Can I test it for free?</span>
+                        <i class="fas fa-chevron-down text-gymNeon"></i>
+                    </button>
+                    <div class="px-6 pb-4 text-gray-400 text-sm">
+                        We are currently offering a free pilot program for our Early Access partners. Fill out the form above to apply.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-black border-t border-gray-900 py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-start gap-8">
+                <div>
+                    <div class="flex items-center gap-3">
+                        <img src="assets/logo.png" alt="Gymetrics logo" class="h-10 w-10">
+                        <img src="assets/word_logo.png" alt="Gymetrics wordmark" class="h-7 object-contain">
+                    </div>
+                    <p class="text-gray-500 text-sm mt-3">Gym CCTVs + AI + computer vision, delivering smarter gyms.</p>
+                </div>
+                <div class="text-gray-300 text-sm">
+                    <p class="font-semibold text-white mb-2">Contact</p>
+                    <p class="text-gray-400">Vishal Rajeev</p>
+                    <p class="text-gray-400"><a href="tel:+919447700157" class="hover:text-gymNeon transition">9447700157</a></p>
+                    <p class="text-gray-400"><a href="mailto:vishalrajeevvr@gmail.com" class="hover:text-gymNeon transition">vishalrajeevvr@gmail.com</a></p>
+                    <p class="text-gray-400"><a href="https://www.gymetrics.in" class="hover:text-gymNeon transition" target="_blank" rel="noopener">www.gymetrics.in</a></p>
+                </div>
+                <div class="flex space-x-6 text-gray-400 text-sm">
+                    <a href="#features" class="hover:text-white transition">Product</a>
+                    <a href="#early-access" class="hover:text-white transition">Request Access</a>
+                    <a href="#faq" class="hover:text-white transition">FAQ</a>
+                </div>
+            </div>
+            <div class="mt-8 pt-8 border-t border-gray-900 text-center md:text-left flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-xs">&copy; 2024 Gymetrics Analytics. All rights reserved.</p>
+                <p class="text-gray-500 text-xs mt-2 md:mt-0 flex items-center">
+                    Built in India for the world <img src="https://upload.wikimedia.org/wikipedia/en/4/41/Flag_of_India.svg" alt="India" class="h-3 w-4 ml-2 inline border border-gray-700">
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const btn = document.getElementById('mobile-menu-btn');
+        const menu = document.getElementById('mobile-menu');
+
+        btn.addEventListener('click', () => {
+            menu.classList.toggle('hidden');
+        });
+    </script>
+</body>
+</html>
