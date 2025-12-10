@@ -80,6 +80,7 @@ const elements = {
     recommendedPlan: document.getElementById('recommendedPlan'),
     rangeMarker: document.getElementById('rangeMarker'),
     billingToggle: document.getElementById('billingToggle'),
+    billingToggleSecondary: document.getElementById('billingToggleSecondary'),
     couponInput: document.getElementById('couponInput'),
     couponApplyBtn: document.getElementById('applyCoupon'),
     couponMessage: document.getElementById('couponMessage'),
@@ -98,6 +99,18 @@ const elements = {
     summaryPerMonth: document.getElementById('summaryPerMonth'),
     summaryPerYear: document.getElementById('summaryPerYear'),
     summarySavings: document.getElementById('summarySavings'),
+    summaryRowStandard: document.getElementById('summaryRowStandard'),
+    summaryRowYearlyDiscount: document.getElementById('summaryRowYearlyDiscount'),
+    summaryRowCoupon: document.getElementById('summaryRowCoupon'),
+    summaryRowTotal: document.getElementById('summaryRowTotal'),
+    summaryRowPerMonth: document.getElementById('summaryRowPerMonth'),
+    summaryRowPerYear: document.getElementById('summaryRowPerYear'),
+    summaryRowSavings: document.getElementById('summaryRowSavings'),
+    summaryCoupon: document.getElementById('summaryCoupon'),
+    summaryCouponLabel: document.getElementById('summaryCouponLabel'),
+    summaryTotalLabel: document.getElementById('summaryTotalLabel'),
+    summaryPerYearLabel: document.getElementById('summaryPerYearLabel'),
+    summarySavingsLabel: document.getElementById('summarySavingsLabel'),
     modal: document.getElementById('contactModal'),
     modalClose: document.getElementById('modalClose'),
     modalForm: document.getElementById('contactForm'),
@@ -279,6 +292,14 @@ function setupEventListeners() {
         elements.billingToggle.addEventListener('change', handleBillingToggle);
     }
 
+    if (elements.billingToggleSecondary) {
+        elements.billingToggleSecondary.addEventListener('change', (e) => {
+            syncBillingToggles(e.target.checked);
+        });
+    }
+
+    syncBillingToggles(elements.billingToggle?.checked || false);
+
     if (elements.couponApplyBtn) {
         elements.couponApplyBtn.addEventListener('click', applyCoupon);
     }
@@ -322,6 +343,7 @@ function setupEventListeners() {
 
 function handleBillingToggle() {
     state.isYearly = elements.billingToggle.checked;
+    syncBillingToggles(state.isYearly);
     updateToggleLabels();
     updatePriceBreakdownDisplay();
     calculateAllPrices();
@@ -430,6 +452,15 @@ function getPlanLabel(planName) {
         large: 'Enterprise / Multi-facility Gym'
     };
     return labels[planName] || 'Gym Plan';
+}
+
+function syncBillingToggles(isYearlyChecked) {
+    if (elements.billingToggle && elements.billingToggle.checked !== isYearlyChecked) {
+        elements.billingToggle.checked = isYearlyChecked;
+    }
+    if (elements.billingToggleSecondary && elements.billingToggleSecondary.checked !== isYearlyChecked) {
+        elements.billingToggleSecondary.checked = isYearlyChecked;
+    }
 }
 
 function updatePlanSelection(memberCount) {
@@ -558,26 +589,28 @@ function calculateAllPrices() {
 
         // Store original monthly total before coupon
         const originalMonthlyTotal = monthlyTotal;
-        let originalYearlyTotal = originalMonthlyTotal * 12;
+        const baseYearlyTotal = originalMonthlyTotal * 12;
 
         // Apply coupon discount if active
-        if (state.couponApplied) {
-            monthlyTotal *= (1 - state.couponDiscount);
-        }
+        const monthlyAfterCoupon = state.couponApplied ? monthlyTotal * (1 - state.couponDiscount) : monthlyTotal;
 
         // Calculate yearly price based on current billing selection
-        let yearlyTotal = monthlyTotal * 12;
+        const yearlyBeforeYearlyDiscount = monthlyAfterCoupon * 12;
+        const yearlyAfterYearlyDiscount = state.isYearly
+            ? yearlyBeforeYearlyDiscount * (1 - state.yearlyDiscount)
+            : yearlyBeforeYearlyDiscount;
 
-        if (state.isYearly) {
-            yearlyTotal *= (1 - state.yearlyDiscount);
-            originalYearlyTotal *= (1 - state.yearlyDiscount);
-        }
+        const finalYearly = yearlyAfterYearlyDiscount;
+        const yearlyBillingDiscountAmount = state.isYearly ? Math.max(0, baseYearlyTotal - (originalMonthlyTotal * 12 * (1 - state.yearlyDiscount))) : 0;
+        const couponDiscountAmount = state.couponApplied ? Math.max(0, (baseYearlyTotal - yearlyBillingDiscountAmount) - finalYearly) : 0;
 
         state.prices[plan] = {
-            monthly: Math.round(monthlyTotal),
-            yearly: Math.round(yearlyTotal),
+            monthly: Math.round(monthlyAfterCoupon),
+            yearly: Math.round(finalYearly),
             originalMonthly: Math.round(originalMonthlyTotal),
-            originalYearly: Math.round(originalYearlyTotal)
+            originalYearly: Math.round(baseYearlyTotal),
+            yearlyAfterYearlyDiscount: Math.round(state.isYearly ? baseYearlyTotal * (1 - state.yearlyDiscount) : baseYearlyTotal),
+            couponDiscountAmount: Math.round(couponDiscountAmount)
         };
     });
 
@@ -696,26 +729,64 @@ function updateBillingSummary() {
     const priceInfo = state.prices[state.activePlan];
     if (!priceInfo) return;
 
-    const base = state.isYearly ? priceInfo.originalYearly : priceInfo.originalMonthly;
-    const total = state.isYearly ? priceInfo.yearly : priceInfo.monthly;
-    const discountAmount = Math.max(0, base - total);
-    const perMonth = state.isYearly ? Math.round(total / 12) : total;
-    const perYear = state.isYearly ? total : Math.round(total * 12);
-    const yearlySavings = state.isYearly ? Math.max(0, (priceInfo.originalMonthly * 12) - total) : 0;
+    const standardYearly = priceInfo.originalYearly; // no discounts
+    const finalYearly = priceInfo.yearly; // fully discounted yearly
+    const perMonth = Math.round(finalYearly / 12);
+    const perYear = state.isYearly ? finalYearly : Math.round(priceInfo.monthly * 12);
+    const totalSavingsYear = Math.max(0, standardYearly - finalYearly);
+    const yearlyBillingDiscount = state.isYearly
+        ? Math.max(0, priceInfo.originalYearly - priceInfo.yearlyAfterYearlyDiscount)
+        : 0;
+    const couponAmountYearly = priceInfo.couponDiscountAmount || 0;
 
     if (elements.summaryPlanName) elements.summaryPlanName.textContent = planLabel;
     if (elements.summaryMode) elements.summaryMode.textContent = state.isYearly ? 'Yearly billing' : 'Monthly billing';
-    if (elements.summaryBase) elements.summaryBase.textContent = formatPrice(base);
-    if (elements.summaryTotal) elements.summaryTotal.textContent = formatPrice(total);
+
+    const showRow = (rowEl, show) => {
+        if (!rowEl) return;
+        rowEl.style.display = show ? 'flex' : 'none';
+    };
+
+    // Standard yearly price (struck through)
+    if (elements.summaryBase) {
+        elements.summaryBase.innerHTML = `<span class="original-price-strike">${formatPrice(standardYearly)}</span>`;
+    }
+
+    if (elements.summaryTotal) elements.summaryTotal.textContent = formatPrice(finalYearly);
     if (elements.summaryTotalPeriod) elements.summaryTotalPeriod.textContent = state.isYearly ? '/yr' : '/mo';
-    if (elements.summaryDiscount) {
-        elements.summaryDiscount.textContent = discountAmount > 0 ? `- ${formatPrice(discountAmount)}` : '—';
-    }
-    if (elements.summaryPerMonth) elements.summaryPerMonth.textContent = formatPrice(perMonth);
+
+    if (elements.summaryPerMonth) elements.summaryPerMonth.textContent = `${formatPrice(perMonth)} /mo`;
     if (elements.summaryPerYear) elements.summaryPerYear.textContent = formatPrice(perYear);
-    if (elements.summarySavings) {
-        elements.summarySavings.textContent = yearlySavings > 0 ? `- ${formatPrice(yearlySavings)}` : '—';
+
+    // Labels that change
+    if (elements.summaryTotalLabel) elements.summaryTotalLabel.textContent = state.isYearly ? ' ' : 'Monthly price';
+    if (elements.summaryPerYearLabel) elements.summaryPerYearLabel.textContent = state.isYearly ? ' ' : 'Equivalent yearly total';
+    if (elements.summarySavingsLabel) elements.summarySavingsLabel.textContent = 'Total savings this year';
+
+    // Yearly discount row
+    if (elements.summaryDiscount) {
+        elements.summaryDiscount.textContent = yearlyBillingDiscount > 0 ? `- ${formatPrice(yearlyBillingDiscount)}` : '—';
     }
+
+    // Coupon row
+    const couponCode = (elements.couponInput?.value || '').trim().toUpperCase();
+    const couponLabelText = couponCode ? `Launch offer ${couponCode}` : 'Launch offer';
+    if (elements.summaryCouponLabel) elements.summaryCouponLabel.textContent = couponLabelText;
+    if (elements.summaryCoupon) elements.summaryCoupon.textContent = couponAmountYearly > 0 ? `- ${formatPrice(couponAmountYearly)}` : '—';
+
+    if (elements.summarySavings) {
+        elements.summarySavings.textContent = totalSavingsYear > 0 ? `- ${formatPrice(totalSavingsYear)}` : '—';
+    }
+
+    // Row visibility rules
+    showRow(elements.summaryRowStandard, state.isYearly);
+    showRow(elements.summaryRowYearlyDiscount, state.isYearly && yearlyBillingDiscount > 0);
+    showRow(elements.summaryRowCoupon, state.couponApplied);
+    showRow(elements.summaryRowTotal, false);
+    showRow(elements.summaryRowPerMonth, true);
+    // Only show "Equivalent yearly total" when in monthly billing
+    showRow(elements.summaryRowPerYear, !state.isYearly);
+    showRow(elements.summaryRowSavings, true);
 }
 
 function openContactModal() {
