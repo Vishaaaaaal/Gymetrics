@@ -173,6 +173,15 @@
                         <h3 id="summaryPlanName">Plan</h3>
                         <p id="summaryMode" class="summary-mode">Monthly</p>
                     </div>
+                    <div class="summary-toggle">
+                        <span class="toggle-label" data-billing="monthly">Monthly</span>
+                        <label class="toggle-switch secondary-toggle">
+                            <input type="checkbox" id="billingToggleSecondary">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label" data-billing="yearly">Yearly</span>
+                        <span class="save-badge inline">Save 25%</span>
+                    </div>
                     <div class="summary-total">
                         <span class="summary-total-label">Total</span>
                         <span id="summaryTotal" class="summary-total-amount">₹0</span>
@@ -181,24 +190,32 @@
                 </div>
                 <div class="summary-columns">
                     <div class="summary-rows">
-                        <div class="summary-row">
-                            <span>Base price</span>
+                        <div class="summary-row" id="summaryRowStandard">
+                            <span>Standard yearly price</span>
                             <span id="summaryBase" class="summary-value">₹0</span>
                         </div>
-                        <div class="summary-row">
-                            <span>Per month (effective)</span>
-                            <span id="summaryPerMonth" class="summary-value">₹0</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Yearly total</span>
-                            <span id="summaryPerYear" class="summary-value">₹0</span>
-                        </div>
-                        <div class="summary-row">
-                            <span>Discounts</span>
+                        <div class="summary-row" id="summaryRowYearlyDiscount">
+                            <span>Yearly billing discount</span>
                             <span id="summaryDiscount" class="summary-value">—</span>
                         </div>
-                        <div class="summary-row">
-                            <span>Savings vs monthly</span>
+                        <div class="summary-row" id="summaryRowCoupon">
+                            <span id="summaryCouponLabel">Launch offer</span>
+                            <span id="summaryCoupon" class="summary-value">—</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowTotal">
+                            <span id="summaryTotalLabel">Total</span>
+                            <span id="summaryTotal" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowPerMonth">
+                            <span>Effective per month</span>
+                            <span id="summaryPerMonth" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowPerYear">
+                            <span id="summaryPerYearLabel"> </span>
+                            <span id="summaryPerYear" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowSavings">
+                            <span id="summarySavingsLabel">Total savings this year</span>
                             <span id="summarySavings" class="summary-value">—</span>
                         </div>
                     </div>
