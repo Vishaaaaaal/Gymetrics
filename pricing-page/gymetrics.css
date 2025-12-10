@@ -1,0 +1,1092 @@
+/* Additional Gymetrics-specific styles */
+
+/* Plan header states */
+.plan-header.active {
+    background: rgba(139, 92, 246, 0.12) !important;
+    border-left-color: var(--accent-purple);
+}
+
+.plan-header.disabled {
+    opacity: 0.4;
+    pointer-events: none;
+}
+
+.plan-size-icon {
+    font-size: 32px;
+    margin-bottom: 8px;
+    filter: grayscale(0.3);
+    transition: all 0.3s ease;
+}
+
+.plan-header.active .plan-size-icon {
+    filter: grayscale(0);
+    animation: bounce 0.5s ease;
+}
+
+@keyframes bounce {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+.plan-members {
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+    font-weight: 500;
+}
+
+/* Price breakdown in headers */
+.price-breakdown {
+    margin: 16px 0;
+    padding: 12px;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: var(--radius-sm);
+    border: 1px solid var(--border-color);
+}
+
+.price-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 6px 0;
+    font-size: 13px;
+    transition: var(--transition-base);
+}
+
+/* Strikethrough for monthly when yearly is selected */
+.price-row.strikethrough {
+    opacity: 0.4;
+}
+
+.price-row.strikethrough .price-value {
+    text-decoration: line-through;
+    text-decoration-thickness: 2px;
+}
+
+/* Green styling for yearly rows when yearly is selected */
+.price-row.yearly-selected {
+    background: rgba(16, 185, 129, 0.1);
+    padding: 8px;
+    margin: 4px -8px;
+    border-radius: 4px;
+}
+
+.price-row.yearly-selected .price-value {
+    color: #10b981 !important;
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 800;
+    font-size: 15px;
+}
+
+.price-row.yearly-selected .price-label {
+    color: #10b981;
+    font-weight: 700;
+}
+
+.price-row.savings {
+    border-top: 1px solid var(--border-color);
+    margin-top: 6px;
+    padding-top: 10px;
+    display: none;
+}
+
+.price-label {
+    color: var(--text-muted);
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-value {
+    font-weight: 700;
+    color: var(--text-primary);
+}
+
+/* Coupon section */
+.coupon-section {
+    max-width: 900px;
+    margin: 32px auto;
+    padding: 0 20px;
+}
+
+.coupon-wrapper {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: 24px;
+    box-shadow: var(--shadow-soft);
+}
+
+.coupon-header {
+    display: flex;
+    align-items: flex-start;
+    gap: 16px;
+    margin-bottom: 20px;
+}
+
+.coupon-header svg {
+    color: var(--accent-green);
+    flex-shrink: 0;
+    margin-top: 4px;
+}
+
+.coupon-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.coupon-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.coupon-header strong {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.coupon-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.coupon-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', monospace;
+    text-transform: uppercase;
+    transition: var(--transition-base);
+}
+
+.coupon-input-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.coupon-input-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-btn {
+    padding: 12px 32px;
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.coupon-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+}
+
+.coupon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-message {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.coupon-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.coupon-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.coupon-message.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Category icon colors */
+.category-icon.admin-icon {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
+}
+
+.category-icon.user-icon {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+}
+
+.category-icon.addon-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.category-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    flex-shrink: 0;
+}
+
+/* Plan cell disabled states */
+.plan-cell.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.plan-cell.disabled .checkmark {
+    cursor: not-allowed;
+}
+
+/* Summary updates */
+.summary-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.summary-price {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.summary-price-yearly {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.summary-item.active {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.summary-item.disabled {
+    opacity: 0.4;
+}
+
+/* Number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Responsive updates */
+@media (max-width: 900px) {
+    .price-breakdown {
+        font-size: 11px;
+    }
+
+    .price-row {
+        font-size: 11px;
+    }
+
+    .coupon-section {
+        padding: 0 16px;
+    }
+
+    .coupon-wrapper {
+        padding: 20px;
+    }
+
+    margin-top: 4px;
+}
+
+.coupon-header h3 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.coupon-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.coupon-header strong {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.coupon-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.coupon-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', monospace;
+    text-transform: uppercase;
+    transition: var(--transition-base);
+}
+
+.coupon-input-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.coupon-input-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-btn {
+    padding: 12px 32px;
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.coupon-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+}
+
+.coupon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-message {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.coupon-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.coupon-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.coupon-message.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Category icon colors */
+.category-icon.admin-icon {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
+}
+
+.category-icon.user-icon {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+}
+
+.category-icon.addon-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.category-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    flex-shrink: 0;
+}
+
+/* Plan cell disabled states */
+.plan-cell.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.plan-cell.disabled .checkmark {
+    cursor: not-allowed;
+}
+
+/* Summary updates */
+.summary-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.summary-price {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.summary-price-yearly {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.summary-item.active {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.summary-item.disabled {
+    opacity: 0.4;
+}
+
+/* Number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Responsive updates */
+@media (max-width: 900px) {
+    .price-breakdown {
+        font-size: 11px;
+    }
+
+    .price-row {
+        font-size: 11px;
+    }
+
+    .coupon-section {
+        padding: 0 16px;
+    }
+
+    .coupon-wrapper {
+        padding: 20px;
+    }
+
+    .coupon-input-group {
+        flex-direction: column;
+    }
+
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.coupon-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.coupon-header strong {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.coupon-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.coupon-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', monospace;
+    text-transform: uppercase;
+    transition: var(--transition-base);
+}
+
+.coupon-input-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.coupon-input-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-btn {
+    padding: 12px 32px;
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.coupon-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+}
+
+.coupon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-message {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.coupon-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.coupon-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.coupon-message.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Category icon colors */
+.category-icon.admin-icon {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
+}
+
+.category-icon.user-icon {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+}
+
+.category-icon.addon-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.category-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    flex-shrink: 0;
+}
+
+/* Plan cell disabled states */
+.plan-cell.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.plan-cell.disabled .checkmark {
+    cursor: not-allowed;
+}
+
+/* Summary updates */
+.summary-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.summary-price {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.summary-price-yearly {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.summary-item.active {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.summary-item.disabled {
+    opacity: 0.4;
+}
+
+/* Number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Responsive updates */
+@media (max-width: 900px) {
+    .price-breakdown {
+        font-size: 11px;
+    }
+
+    .price-row {
+        font-size: 11px;
+    }
+
+    .coupon-section {
+        padding: 0 16px;
+    }
+
+    .coupon-wrapper {
+        padding: 20px;
+    }
+
+    .coupon-input-group {
+        flex-direction: column;
+    }
+
+    font-weight: 700;
+    margin-bottom: 4px;
+    color: var(--text-primary);
+}
+
+.coupon-header p {
+    font-size: 14px;
+    color: var(--text-secondary);
+}
+
+.coupon-header strong {
+    color: var(--accent-green);
+    background: rgba(16, 185, 129, 0.1);
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.coupon-input-group {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.coupon-input-group input {
+    flex: 1;
+    padding: 12px 16px;
+    background: var(--bg-elevated);
+    border: 2px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-primary);
+    font-size: 14px;
+    font-weight: 600;
+    font-family: 'Inter', monospace;
+    text-transform: uppercase;
+    transition: var(--transition-base);
+}
+
+.coupon-input-group input:focus {
+    outline: none;
+    border-color: var(--accent-green);
+    box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+.coupon-input-group input:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-btn {
+    padding: 12px 32px;
+    background: var(--success-gradient);
+    color: white;
+    border: none;
+    border-radius: var(--radius-md);
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: var(--transition-base);
+    box-shadow: 0 4px 16px rgba(16, 185, 129, 0.3);
+}
+
+.coupon-btn:hover:not(:disabled) {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 24px rgba(16, 185, 129, 0.4);
+}
+
+.coupon-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+.coupon-message {
+    font-size: 13px;
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-weight: 500;
+}
+
+.coupon-message.success {
+    background: rgba(16, 185, 129, 0.1);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.coupon-message.error {
+    background: rgba(239, 68, 68, 0.1);
+    color: #f87171;
+    border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.coupon-message.info {
+    background: rgba(59, 130, 246, 0.1);
+    color: var(--accent-blue);
+    border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+/* Category icon colors */
+.category-icon.admin-icon {
+    background: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%) !important;
+}
+
+.category-icon.user-icon {
+    background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 100%) !important;
+}
+
+.category-icon.addon-icon {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%) !important;
+}
+
+.category-desc {
+    font-size: 13px;
+    color: var(--text-muted);
+    font-weight: 400;
+    flex-shrink: 0;
+}
+
+/* Plan cell disabled states */
+.plan-cell.disabled {
+    opacity: 0.3;
+    pointer-events: none;
+}
+
+.plan-cell.disabled .checkmark {
+    cursor: not-allowed;
+}
+
+/* Summary updates */
+.summary-prices {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    align-items: center;
+}
+
+.summary-price {
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #fff 0%, var(--accent-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.summary-price-yearly {
+    font-size: 12px;
+    color: var(--text-muted);
+    font-weight: 500;
+}
+
+.summary-item.active {
+    background: rgba(139, 92, 246, 0.2) !important;
+    border-color: var(--accent-purple) !important;
+    box-shadow: 0 0 20px rgba(139, 92, 246, 0.3);
+}
+
+.summary-item.disabled {
+    opacity: 0.4;
+}
+
+/* Number input styling */
+input[type="number"]::-webkit-inner-spin-button,
+input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+    appearance: textfield;
+}
+
+/* Responsive updates */
+@media (max-width: 900px) {
+    .price-breakdown {
+        font-size: 11px;
+    }
+
+    .price-row {
+        font-size: 11px;
+    }
+
+    .coupon-section {
+        padding: 0 16px;
+    }
+
+    .coupon-wrapper {
+        padding: 20px;
+    }
+
+    .coupon-input-group {
+        flex-direction: column;
+    }
+
+    .coupon-btn {
+        width: 100%;
+    }
+}
+
+/* Coupon original price strikethrough */
+.original-price-strike {
+    text-decoration: line-through;
+    color: rgba(255, 255, 255, 0.6) !important;
+    /* Ensure visibility against dark bg */
+    font-size: 0.85em;
+    margin-right: 8px;
+    opacity: 1;
+    /* Reset opacity as color handles it */
+
+    /* Reset gradient text effects from parent */
+    -webkit-text-fill-color: rgba(255, 255, 255, 0.6) !important;
+    background: none !important;
+    font-weight: 400;
+}
+
+/* Feature Row Styles */
+.feature-row.coming-soon {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.8);
+}
+
+.custom-checkbox.locked {
+    cursor: not-allowed;
+    opacity: 0.7;
+}
+
+.custom-checkbox.locked input:checked~.checkmark {
+    background: var(--accent-green);
+    /* Keep it green even if disabled */
+    border-color: var(--accent-green);
+}
+
+/* Badges */
+.badge-coming,
+.badge-standard {
+    font-size: 10px;
+    padding: 2px 6px;
+    border-radius: 4px;
+    margin-left: 8px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-coming {
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--text-muted);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.badge-standard {
+    background: rgba(16, 185, 129, 0.15);
+    color: var(--accent-green);
+    border: 1px solid rgba(16, 185, 129, 0.3);
+}
+
+.badge-ai {
+    background: rgba(192, 255, 0, 0.12);
+    color: #c0ff00;
+    border: 1px solid rgba(192, 255, 0, 0.4);
+    padding: 2px 8px;
+    border-radius: 6px;
+    font-size: 10px;
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.badge-ai .ai-sparkle {
+    height: 12px;
+    width: 12px;
+    fill: currentColor;
+    filter: drop-shadow(0 0 6px rgba(192, 255, 0, 0.5));
+}
+
+/* Toggle Switch Styles */
+.category-toggle {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-left: auto;
+    margin-right: 16px;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 44px;
+    height: 24px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: var(--bg-elevated);
+    transition: .4s;
+    border: 1px solid var(--border-color);
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 2px;
+    bottom: 2px;
+    background-color: var(--text-muted);
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: rgba(16, 185, 129, 0.2);
+    border-color: var(--accent-green);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+    background-color: var(--accent-green);
+}
+
+input:focus+.slider {
+    box-shadow: 0 0 1px var(--accent-green);
+}
+
+.slider.round {
+    border-radius: 24px;
+}
+
+.toggle-label {
+    font-size: 13px;
+    color: var(--text-secondary);
+    font-weight: 500;
+}
+
+/* Disabled Category Style */
+.category-content.disabled-category {
+    opacity: 0.5;
+    pointer-events: none;
+    filter: grayscale(0.8);
+    transition: all 0.3s ease;
+}
+
+.category-content.disabled-category .custom-checkbox input:checked~.checkmark {
+    background-color: var(--text-muted);
+    border-color: var(--text-muted);
+}

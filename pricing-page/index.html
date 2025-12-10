@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gymetrics Pricing | Smart Gym Solutions</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="gymetrics.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <div class="background-gradient"></div>
+    <main class="container">
+        <div class="top-nav">
+            <a href="../index.html" class="brand-link">
+                <img src="../assets/logo.png" alt="Gymetrics logo" class="logo-mark">
+                <img src="../assets/word_logo.png" alt="Gymetrics wordmark" class="logo-word">
+            </a>
+            <div class="top-nav-actions">
+                <a href="../index.html" class="top-link">Home</a>
+                <a href="#plans" class="top-link">Plans</a>
+            </div>
+        </div>
+        <header class="header">
+            <span class="badge">Transform Your Gym</span>
+            <h1>Smart Gym Pricing Plans</h1>
+            <p class="subtitle">Enter your gym's member count to find the perfect plan</p>
+        </header>
+
+        <div class="member-input-section">
+            <div class="member-input-wrapper">
+                <label for="memberCount" class="input-label">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="9" cy="7" r="4"></circle>
+                        <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                        <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+                    </svg>
+                    How many members does your gym have?
+                </label>
+                <div class="input-group">
+                    <input type="number" id="memberCount" min="0" max="10000" value="100"
+                        placeholder="Enter member count">
+                    <span class="input-suffix">members</span>
+                </div>
+            </div>
+            <div class="plan-range-visual">
+                    <div class="range-track">
+                        <div class="range-segment" data-plan="small"><span class="segment-label">Starter Gym</span><span
+                                class="segment-range">10-50 members</span></div>
+                        <div class="range-segment" data-plan="growing"><span class="segment-label">Growing Gym</span><span
+                                class="segment-range">50-150 members</span></div>
+                        <div class="range-segment" data-plan="big"><span class="segment-label">Professional Gym</span><span
+                                class="segment-range">150-300 members</span></div>
+                        <div class="range-segment" data-plan="large"><span class="segment-label">Enterprise / Multi-facility</span><span
+                                class="segment-range">300+ members</span></div>
+                    </div>
+                    <div class="range-marker" id="rangeMarker"></div>
+                </div>
+            </div>
+
+        <div class="billing-toggle">
+            <span class="toggle-label active" data-billing="monthly">Monthly</span>
+            <label class="toggle-switch">
+                <input type="checkbox" id="billingToggle">
+                <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-label" data-billing="yearly">Yearly <span class="save-badge">Save 25%</span></span>
+        </div>
+
+        <div id="plans" class="pricing-table-wrapper">
+            <div class="pricing-table">
+                <div class="table-header">
+                    <div class="feature-header">
+                        <h3>Features</h3>
+                        <p>Configure your smart gym</p>
+                    </div>
+                    <div class="plan-headers">
+                        <div class="plan-header" data-plan="small">
+                            <div class="plan-size-icon">🏠</div>
+                            <h2>Starter Gym</h2>
+                            <p class="plan-members">0 - 50 members</p>
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span class="price-label">Monthly:</span>
+                                    <span class="price-value">₹<span id="price-small-monthly">0</span>/mo</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Per Year:</span>
+                                    <span class="price-value">₹<span id="price-small-yearly">0</span>/yr</span>
+                                </div>
+                                <div class="price-row savings">
+                                    <span class="price-label">Yearly (per mo):</span>
+                                    <span class="price-value">₹<span
+                                            id="price-small-yearly-per-month">0</span>/mo</span>
+                                </div>
+                            </div>
+                            <button class="cta-btn secondary" onclick="selectPlan('small')">Get Started</button>
+                        </div>
+                        <div class="plan-header" data-plan="growing">
+                            <div class="plan-size-icon">🏢</div>
+                            <h2>Growing Gym</h2>
+                            <p class="plan-members">50 - 150 members</p>
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span class="price-label">Monthly:</span>
+                                    <span class="price-value">₹<span id="price-growing-monthly">0</span>/mo</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Per Year:</span>
+                                    <span class="price-value">₹<span id="price-growing-yearly">0</span>/yr</span>
+                                </div>
+                                <div class="price-row savings">
+                                    <span class="price-label">Yearly (per mo):</span>
+                                    <span class="price-value">₹<span
+                                            id="price-growing-yearly-per-month">0</span>/mo</span>
+                                </div>
+                            </div>
+                            <button class="cta-btn secondary" onclick="selectPlan('growing')">Get Started</button>
+                        </div>
+                        <div class="plan-header" data-plan="big">
+                            <div class="plan-size-icon">🏬</div>
+                            <h2>Professional Gym</h2>
+                            <p class="plan-members">150 - 300 members</p>
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span class="price-label">Monthly:</span>
+                                    <span class="price-value">₹<span id="price-big-monthly">0</span>/mo</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Per Year:</span>
+                                    <span class="price-value">₹<span id="price-big-yearly">0</span>/yr</span>
+                                </div>
+                                <div class="price-row savings">
+                                    <span class="price-label">Yearly (per mo):</span>
+                                    <span class="price-value">₹<span id="price-big-yearly-per-month">0</span>/mo</span>
+                                </div>
+                            </div>
+                            <button class="cta-btn secondary" onclick="selectPlan('big')">Get Started</button>
+                        </div>
+                        <div class="plan-header" data-plan="large">
+                            <div class="plan-size-icon">🏟️</div>
+                            <h2>Enterprise / Multi-facility Gym</h2>
+                            <p class="plan-members">300+ members</p>
+                            <div class="price-breakdown">
+                                <div class="price-row">
+                                    <span class="price-label">Monthly:</span>
+                                    <span class="price-value">₹<span id="price-large-monthly">0</span>/mo</span>
+                                </div>
+                                <div class="price-row">
+                                    <span class="price-label">Per Year:</span>
+                                    <span class="price-value">₹<span id="price-large-yearly">0</span>/yr</span>
+                                </div>
+                                <div class="price-row savings">
+                                    <span class="price-label">Yearly (per mo):</span>
+                                    <span class="price-value">₹<span
+                                            id="price-large-yearly-per-month">0</span>/mo</span>
+                                </div>
+                            </div>
+                            <button class="cta-btn secondary" onclick="selectPlan('large')">Get Started</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="featureCategories"></div>
+            </div>
+            <div id="billingSummary" class="billing-summary">
+                <div class="summary-header">
+                    <div>
+                        <p class="summary-kicker">Billing Summary</p>
+                        <h3 id="summaryPlanName">Plan</h3>
+                        <p id="summaryMode" class="summary-mode">Monthly</p>
+                    </div>
+                    <div class="summary-toggle">
+                        <span class="toggle-label" data-billing="monthly">Monthly</span>
+                        <label class="toggle-switch secondary-toggle">
+                            <input type="checkbox" id="billingToggleSecondary">
+                            <span class="toggle-slider"></span>
+                        </label>
+                        <span class="toggle-label" data-billing="yearly">Yearly</span>
+                        <span class="save-badge inline">Save 25%</span>
+                    </div>
+                    <div class="summary-total">
+                        <span class="summary-total-label">Total</span>
+                        <span id="summaryTotal" class="summary-total-amount">₹0</span>
+                        <span id="summaryTotalPeriod" class="summary-total-period">/mo</span>
+                    </div>
+                </div>
+                <div class="summary-columns">
+                    <div class="summary-rows">
+                        <div class="summary-row" id="summaryRowStandard">
+                            <span>Standard yearly price</span>
+                            <span id="summaryBase" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowYearlyDiscount">
+                            <span>Yearly billing discount</span>
+                            <span id="summaryDiscount" class="summary-value">—</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowCoupon">
+                            <span id="summaryCouponLabel">Launch offer</span>
+                            <span id="summaryCoupon" class="summary-value">—</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowTotal">
+                            <span id="summaryTotalLabel">Total</span>
+                            <span id="summaryTotal" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowPerMonth">
+                            <span>Effective per month</span>
+                            <span id="summaryPerMonth" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowPerYear">
+                            <span id="summaryPerYearLabel"> </span>
+                            <span id="summaryPerYear" class="summary-value">₹0</span>
+                        </div>
+                        <div class="summary-row" id="summaryRowSavings">
+                            <span id="summarySavingsLabel">Total savings this year</span>
+                            <span id="summarySavings" class="summary-value">—</span>
+                        </div>
+                    </div>
+                    <div class="summary-side">
+                        <button id="summaryCTA" class="cta-btn primary summary-btn">Get in touch about this plan</button>
+                    </div>
+                </div>
+                <div class="summary-note">Lock this plan in and we’ll tailor onboarding for your gym.</div>
+            </div>
+        </div>
+
+        <div class="discount-floating">
+            <button id="discountToggle" class="discount-fab" aria-expanded="false" aria-controls="couponDrawer">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                    <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                </svg>
+            </button>
+            <div id="couponDrawer" class="coupon-drawer" aria-hidden="true">
+                <div class="drawer-header">
+                    <div class="coupon-header">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                            <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                        </svg>
+                        <div>
+                            <h3>Early Customer Discount</h3>
+                            <p>Ask us about launch offers—we'll tailor incentives to your plan.</p>
+                        </div>
+                    </div>
+                    <button id="couponClose" class="drawer-close" aria-label="Minimize">
+                        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M6 12h12"></path>
+                        </svg>
+                    </button>
+                </div>
+                <div class="coupon-input-group">
+                    <input type="text" id="couponInput" placeholder="Enter coupon code" maxlength="10">
+                    <button id="applyCoupon" class="coupon-btn">Apply</button>
+                </div>
+                <div id="couponMessage" class="coupon-message"></div>
+            </div>
+        </div>
+
+        <div id="contactModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="contactTitle">
+            <div class="modal-backdrop"></div>
+            <div class="modal-content">
+                <button class="modal-close" id="modalClose" aria-label="Close">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <line x1="18" y1="6" x2="6" y2="18"></line>
+                        <line x1="6" y1="6" x2="18" y2="18"></line>
+                    </svg>
+                </button>
+                <div class="modal-header">
+                    <p class="summary-kicker">Plan Inquiry</p>
+                    <h3 id="contactTitle">Be Our Early Partner Gym</h3>
+                    <p class="modal-subtitle" id="modalPlanMeta">We’ll tailor onboarding for your selected plan.</p>
+                </div>
+                <form id="contactForm" class="modal-form">
+                    <div class="form-grid">
+                        <input type="text" id="modalName" name="name" placeholder="Your Name" required>
+                        <input type="text" id="modalGym" name="gym" placeholder="Gym Name" required>
+                    </div>
+                    <div class="form-grid">
+                        <input type="email" id="modalEmail" name="email" placeholder="Email Address" required>
+                        <input type="tel" id="modalPhone" name="phone" placeholder="Phone Number" required>
+                    </div>
+                    <div class="form-grid">
+                        <input type="text" id="modalCity" name="city" placeholder="City" class="full-span" required>
+                    </div>
+                    <button type="submit" class="cta-btn primary modal-submit">Get in touch about this plan</button>
+                    <p class="modal-note"><i class="fas fa-lock"></i> Your data is secure. No spam.</p>
+                </form>
+            </div>
+        </div>
+
+        <div class="price-summary">
+            <div class="summary-content">
+                <div class="summary-item" data-plan="small">
+                    <span class="plan-name">Starter Gym</span>
+                    <div class="summary-prices">
+                        <span class="summary-price">₹<span id="total-small-monthly">0</span>/mo</span>
+                        <span class="summary-price-yearly">₹<span id="total-small-yearly">0</span>/yr</span>
+                    </div>
+                </div>
+                <div class="summary-item" data-plan="growing">
+                    <span class="plan-name">Growing Gym</span>
+                    <div class="summary-prices">
+                        <span class="summary-price">₹<span id="total-growing-monthly">0</span>/mo</span>
+                        <span class="summary-price-yearly">₹<span id="total-growing-yearly">0</span>/yr</span>
+                    </div>
+                </div>
+                <div class="summary-item" data-plan="big">
+                    <span class="plan-name">Professional Gym</span>
+                    <div class="summary-prices">
+                        <span class="summary-price">₹<span id="total-big-monthly">0</span>/mo</span>
+                        <span class="summary-price-yearly">₹<span id="total-big-yearly">0</span>/yr</span>
+                    </div>
+                </div>
+                <div class="summary-item" data-plan="large">
+                    <span class="plan-name">Enterprise / Multi-facility Gym</span>
+                    <div class="summary-prices">
+                        <span class="summary-price">₹<span id="total-large-monthly">0</span>/mo</span>
+                        <span class="summary-price-yearly">₹<span id="total-large-yearly">0</span>/yr</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="toast" id="toast"><span class="toast-icon">✓</span><span class="toast-message">Feature
+                updated!</span></div>
+    </main>
+    <script src="script.js"></script>
+</body>
+
+</html>
