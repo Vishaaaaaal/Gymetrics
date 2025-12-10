@@ -289,13 +289,11 @@ function setupEventListeners() {
     });
 
     if (elements.billingToggle) {
-        elements.billingToggle.addEventListener('change', handleBillingToggle);
+        elements.billingToggle.addEventListener('change', (e) => setBilling(e.target.checked));
     }
 
     if (elements.billingToggleSecondary) {
-        elements.billingToggleSecondary.addEventListener('change', (e) => {
-            syncBillingToggles(e.target.checked);
-        });
+        elements.billingToggleSecondary.addEventListener('change', (e) => setBilling(e.target.checked));
     }
 
     syncBillingToggles(elements.billingToggle?.checked || false);
@@ -341,8 +339,8 @@ function setupEventListeners() {
     updateToggleLabels();
 }
 
-function handleBillingToggle() {
-    state.isYearly = elements.billingToggle.checked;
+function setBilling(isYearly) {
+    state.isYearly = isYearly;
     syncBillingToggles(state.isYearly);
     updateToggleLabels();
     updatePriceBreakdownDisplay();
