@@ -1028,6 +1028,7 @@ body {
     flex-direction: column;
     align-items: flex-end;
     gap: 12px;
+    pointer-events: none;
 }
 
 .discount-fab {
@@ -1043,6 +1044,7 @@ body {
     justify-content: center;
     cursor: pointer;
     transition: transform var(--transition-base), box-shadow var(--transition-base);
+    pointer-events: auto;
 }
 
 .discount-fab:hover {
@@ -1061,6 +1063,7 @@ body {
     opacity: 0;
     pointer-events: none;
     transition: transform var(--transition-smooth), opacity var(--transition-smooth);
+    pointer-events: auto;
 }
 
 .coupon-drawer.open {
